@@ -92,6 +92,7 @@ server.start({
   host: program.host,
   port: program.port,
   theme: theme,
+  extraCss: revealOptions.extraCss,
   separator: program.separator,
   verticalSeparator: program.verticalSeparator,
   printFile: program.print,

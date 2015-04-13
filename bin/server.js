@@ -24,6 +24,7 @@ var opts = {
     template: fs.readFileSync(serverBasePath + '/template/reveal.html').toString(),
     templateListing: fs.readFileSync(serverBasePath + '/template/listing.html').toString(),
     theme: 'black',
+    extraCss: null,
     separator: '^(\r\n?|\n)---(\r\n?|\n)$',
     verticalSeparator: '^(\r\n?|\n)----(\r\n?|\n)$',
     revealOptions: {}
@@ -39,13 +40,15 @@ var startMarkdownServer = function(options) {
     var initialMarkdownPath = options.initialMarkdownPath;
     var printFile = options.printFile;
     var sourceFile;
+    var revealOptions = options.revealOptions;
 
     opts.userBasePath = options.basePath;
     opts.host = options.host || opts.host;
     opts.port = options.port || opts.port;
     opts.theme = options.theme || opts.theme;
-    opts.separator = options.separator || opts.separator;
-    opts.verticalSeparator = options.verticalSeparator || opts.verticalSeparator;
+    opts.extraCss = options.extraCss || opts.extraCss;
+    opts.separator = revealOptions.separator || options.separator || opts.separator;
+    opts.verticalSeparator = revealOptions.verticalSeparator || options.verticalSeparator || opts.verticalSeparator;
     opts.printMode = typeof printFile !== 'undefined' && printFile || opts.printMode;
     opts.revealOptions = options.revealOptions || {};
 
@@ -129,6 +132,7 @@ var render = function(res, markdown) {
     res.send(Mustache.to_html(opts.template, {
         theme: opts.theme,
         slides: slides,
+        extraCss: opts.extraCss,
         options: JSON.stringify(opts.revealOptions, null, 2)
     }));
 };

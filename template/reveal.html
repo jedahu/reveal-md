@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="/css/theme/{{theme}}.css" id="theme">
         <!-- For syntax highlighting -->
         <link rel="stylesheet" href="/lib/css/zenburn.css">
+        {{#extraCss}}
+        <link rel="stylesheet" href="{{extraCss}}">
+        {{/extraCss}}
 
         <!-- If the query includes 'print-pdf', use the PDF print sheet -->
         <script>
